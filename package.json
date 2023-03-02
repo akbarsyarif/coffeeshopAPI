@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Aplikasi Coffe Shop",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
   "author": "Akbar Syarif",
   "license": "ISC",
   "dependencies": {
