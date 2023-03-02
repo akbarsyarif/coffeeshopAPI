@@ -14,4 +14,4 @@ app.listen(PORT, () => {
   // console.log("welcome");
 });
 
-// untuk hot refresh tambahkan script nodemon di package.json
+// untuk hot refresh tambahkan script : nodemon "namafile" di package.json
