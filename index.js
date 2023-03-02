@@ -20,7 +20,20 @@ app.get("/", (req, res) => {
   // res.json({
   //   msg: `Selamat Datang di Coffee Shop`,
   // });
-  res.status(200).send(`Welcome`);
+  // res.status(200).send(`Welcome`);
+  const db = require("./src/configs/postgre");
+  db.query("select id, email, phone_number from users", (err, result) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).json({
+        msg: "Internal Server Error",
+      });
+      return;
+    }
+    res.status(200).json({
+      data: result.rows,
+    });
+  });
 });
 
 // digunakan untuk koneksi, return server HTTP
