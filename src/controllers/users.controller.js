@@ -1,5 +1,7 @@
 const db = require("../configs/postgre");
 
+const usersModels = require("../models/users.model");
+
 // untuk akses DB
 // path
 // URL = PROTOCOL://HOST:PORT/ENDPOINT
@@ -8,21 +10,17 @@ const db = require("../configs/postgre");
 // PORT = ketika ip ada port
 // ENDPOINT = alat navigasi
 // handler callback unntuk menangani ketika request diterima
-const getUsers = (req, res) => {
-  db.query("select id, email, phone_number, role_id from users", (err, result) => {
-    if (err) {
-      console.log(err.message);
-      res.status(500).json({
-        msg: "Internal Server Error",
-      });
-      return;
-    }
-    res.status(200).json({
-      data: result.rows,
-    });
-  });
-};
+const getUsers = usersModels.getUsers;
+
+const insertUsers = usersModels.insertUsers;
+
+const patchUsers = usersModels.patchUsers;
+
+const deleteUsers = usersModels.deleteUsers;
 
 module.exports = {
   getUsers,
+  insertUsers,
+  patchUsers,
+  deleteUsers,
 };
