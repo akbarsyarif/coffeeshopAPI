@@ -2,13 +2,17 @@ const db = require("../configs/postgre");
 
 const getProducts = () => {
   return new Promise((resolve, reject) => {
-    db.query("select * from products order by id ASC", (error, result) => {
-      if (error) {
-        reject(error);
-        return;
+    db.query(
+      `select products.id, products.product_name, products.price, category.category_name from products
+    join category on products.category_id = category.id order by id ASC`,
+      (error, result) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(result);
       }
-      resolve(result);
-    });
+    );
   });
 };
 

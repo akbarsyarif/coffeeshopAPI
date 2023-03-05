@@ -1,3 +1,4 @@
+require("dotenv").config();
 // <es6 require
 const express = require("express");
 // >es6 import
@@ -6,7 +7,9 @@ const express = require("express");
 
 // create express application
 const app = express();
-const PORT = 8080;
+
+const { serverPort } = require("./src/configs/environment");
+const PORT = serverPort || 8080;
 
 // parser body
 app.use(express.urlencoded({ extended: false })); //form-urlencoded

@@ -1,12 +1,15 @@
 const { Pool } = require("pg");
 // client
 // pool
+
+const env = require("./environment");
+
 const db = new Pool({
-  user: "akbar",
-  password: "semi",
-  host: "localhost",
-  database: "coffe_shopDB",
-  port: 5432,
+  user: env.uName,
+  password: env.password,
+  host: env.host,
+  database: env.dataBase,
+  port: env.dbPort,
 });
 
 // <es6

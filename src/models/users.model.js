@@ -1,11 +1,13 @@
 const db = require("../configs/postgre");
 
+/* global values:writable */
+
 const getUsers = (req, res) => {
   const { query } = req;
   let sql = "select id, email, phone_number from users order by id ASC";
   values = [];
   if (query.limit === undefined) {
-    sql = sql;
+    sql;
   } else if (query.limit.length > 0) {
     values.push(query.limit);
     sql += " limit $1";

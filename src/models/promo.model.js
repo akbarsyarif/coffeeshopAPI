@@ -2,7 +2,8 @@ const db = require("../configs/postgre");
 
 const getPromo = (query) => {
   return new Promise((resolve, reject) => {
-    let sql = "select * from promo ";
+    let sql = `select promo.id, promo.promo_code, promo.discount, products.product_name, promo.expiry_date from promo
+    join products on promo.product_id = products.id `;
 
     if (query.search && query.discount === "most") {
       sql += `where promo_code LIKE UPPER('%${query.search}%') order by discount DESC`;
@@ -23,6 +24,7 @@ const getPromo = (query) => {
     });
   });
 };
+// "select * from promo "
 
 const insertPromo = (data) => {
   return new Promise((resolve, reject) => {

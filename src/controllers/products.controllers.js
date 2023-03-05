@@ -1,4 +1,4 @@
-const db = require("../configs/postgre");
+// const db = require("../configs/postgre");
 
 const productsModel = require("../models/products.model");
 
