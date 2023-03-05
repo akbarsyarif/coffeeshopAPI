@@ -1,7 +1,27 @@
 const db = require("../configs/postgre");
 
 const getUsers = (req, res) => {
-  db.query("select id, email, phone_number from users order by id ASC", (err, result) => {
+  const { query } = req;
+  let sql = "select id, email, phone_number from users order by id ASC";
+  values = [];
+  if (query.limit === undefined) {
+    sql = sql;
+  } else if (query.limit.length > 0) {
+    values.push(query.limit);
+    sql += " limit $1";
+    console.log(sql);
+  }
+
+  db.query(sql, values, (err, result) => {
+    function containsOnlyNumbers(values) {
+      return /^\d+$/.test(values);
+    }
+    if (values.length > 0 && !containsOnlyNumbers(values)) {
+      res.status(400).json({
+        msg: "Only Use Number For Limit Params",
+      });
+      return;
+    }
     if (err) {
       console.log(err.message);
       res.status(500).json({
