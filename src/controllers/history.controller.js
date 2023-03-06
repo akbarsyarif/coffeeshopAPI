@@ -51,8 +51,24 @@ const patchHistory = async (req, res) => {
   }
 };
 
+const deleteHistory = async (req, res) => {
+  const { body } = req;
+  try {
+    const result = await historyModel.deleteHistory(body);
+    res.status(202).json({
+      data: result.rows,
+      msg: `History id No.${body.id} deleted Successfully`,
+    });
+  } catch (err) {
+    res.status(500).json({
+      msg: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   getHistory,
   insertHistory,
   patchHistory,
+  deleteHistory,
 };

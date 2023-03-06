@@ -49,8 +49,23 @@ const patchHistory = (data) => {
   });
 };
 
+const deleteHistory = (data) => {
+  return new Promise((resolve, reject) => {
+    let sql = "delete from history where id = $1 RETURNING *";
+    const values = [data.id];
+    db.query(sql, values, (error, result) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   getHistory,
   insertHistory,
   patchHistory,
+  deleteHistory,
 };
