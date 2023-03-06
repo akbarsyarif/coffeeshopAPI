@@ -1,0 +1,21 @@
+A. NodeJS
+    Node.js adalah runtime environment untuk JavaScript yang bersifat open-source dan cross-platform. Dengan Node.js kode kita tidak akan terbatas pada lingkungan browser.
+    Node.js menggunakan V8 JavaScript engine di luar browser. Ini memungkinkan Node.js memiliki performa yang tinggi.
+    Node.js juga menyediakan banyak library/module JavaScript yang membantu menyederhanakan pengembangan aplikasi web. 
+
+B. ExpressJS
+    Express.js adalah framework web app untuk Node.js yang ditulis dengan bahasa pemrograman JavaScript.
+    Express.js adalah framework back end. Artinya, ia bertanggung jawab untuk mengatur fungsionalitas website, seperti pengelolaan routing dan session, permintaan HTTP, penanganan error, serta pertukaran data di server
+
+C. postgreSQL
+    PostgreSQL adalah sistem manajemen database relasional (RDBMS) yang bersifat open source. 
+    PostgreSql dapat mengolah data dalam tabel yang memiliki relasi satu sama lain dan dapat digunakan secara gratis serta bebas dimodifikasi.
+
+D. API
+    API atau Application Programming Interface adalah sebuah software yang memungkinkan para developer untuk mengintegrasikan dan mengizinkan dua aplikasi yang berbeda secara bersamaan untuk saling terhubung satu sama lain
+    Tujuan penggunaan dari API adalah untuk saling berbagi data antar aplikasi yang berbeda tersebut
+
+    API VS REST API
+        API adalah sebuah penghubung antara aplikasi yang kita buat dengan aplikasi yang lain dengan tujuan untuk saling berbagi data antar aplikasi tersebut.
+
+        REST itu adalah salah satu dari desain arsitektur di dalam API
