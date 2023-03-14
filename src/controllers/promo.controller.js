@@ -13,8 +13,10 @@ const getPromo = async (req, res) => {
       });
       return;
     }
+    const meta = await promoModel.getMetaPromo(query);
     res.status(200).json({
       data: result.rows,
+      meta,
     });
   } catch (err) {
     res.status(500).json({

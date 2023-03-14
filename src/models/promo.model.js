@@ -15,7 +15,14 @@ const getPromo = (query) => {
       sql += "order by id ASC";
     }
 
-    db.query(sql, (error, result) => {
+    const limit = parseInt(query.limit) || 3;
+    const page = parseInt(query.page) || 1;
+    const offset = (page - 1) * limit;
+
+    sql += ` limit $1 offset $2`;
+    const values = [limit, offset];
+
+    db.query(sql, values, (error, result) => {
       if (error) {
         reject(error);
         return;
@@ -24,7 +31,39 @@ const getPromo = (query) => {
     });
   });
 };
-// "select * from promo "
+
+const getMetaPromo = (query) => {
+  return new Promise((resolve, reject) => {
+    let sql = `select count(*) as total_data from promo`;
+
+    db.query(sql, (error, result) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      const totalData = result.rows[0].total_data;
+      const limit = parseInt(query.limit) || 3;
+      const page = parseInt(query.page) || 1;
+      const totalPage = Math.ceil(totalData / limit);
+      let next = ``;
+      let prev = ``;
+      if (page === 1) {
+        prev = null;
+      } else prev += `http://localhost:8080/promo?limit=${limit}&page=${page - 1}`;
+      if (page === totalPage) {
+        next = null;
+      } else next += `http://localhost:8080/promo?limit=${limit}&page=${page + 1}`;
+
+      const meta = {
+        totalData,
+        next,
+        prev,
+        totalPage,
+      };
+      resolve(meta);
+    });
+  });
+};
 
 const insertPromo = (data) => {
   return new Promise((resolve, reject) => {
@@ -69,6 +108,7 @@ const deletePromo = (data) => {
 
 module.exports = {
   getPromo,
+  getMetaPromo,
   insertPromo,
   patchPromo,
   deletePromo,

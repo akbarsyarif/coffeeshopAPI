@@ -37,6 +37,56 @@ const getUsers = (req, res) => {
   });
 };
 
+const getUserDetails = (path) => {
+  return new Promise((resolve, reject) => {
+    let sql = `select u.id, u.email, u.phone_number, p.profile_picture, p.address, p.display_name, p.first_name, p.last_name, p.birth_date, g.gender from users u
+    join user_profile p on u.id = p.user_id
+    join profile_gender g on p.gender_id = g.id where u.id = $1`;
+    values = [path.userId];
+
+    db.query(sql, values, (error, result) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(result);
+    });
+  });
+};
+
+const getMetaUsers = (query) => {
+  return new Promise((resolve, reject) => {
+    let sql = `select count(*) as total_data from users`;
+
+    db.query(sql, (error, result) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      const totalData = result.rows[0].total_data;
+      const limit = parseInt(query.limit) || 3;
+      const page = parseInt(query.page) || 1;
+      const totalPage = Math.ceil(totalData / limit);
+      let next = ``;
+      let prev = ``;
+      if (page === 1) {
+        prev = null;
+      } else prev += `http://localhost:8080/users?limit=${limit}&page=${page - 1}`;
+      if (page === totalPage) {
+        next = null;
+      } else next += `http://localhost:8080/users?limit=${limit}&page=${page + 1}`;
+
+      const meta = {
+        totalData,
+        next,
+        prev,
+        totalPage,
+      };
+      resolve(meta);
+    });
+  });
+};
+
 const insertUsers = (req, res) => {
   const { body } = req;
   const values = [body.email, body.password, body.phone_number, body.role_id];
@@ -96,6 +146,8 @@ const deleteUsers = (req, res) => {
 
 module.exports = {
   getUsers,
+  getUserDetails,
+  getMetaUsers,
   insertUsers,
   patchUsers,
   deleteUsers,

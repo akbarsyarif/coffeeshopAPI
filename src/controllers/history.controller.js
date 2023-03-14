@@ -1,4 +1,5 @@
 const historyModel = require("../models/history.model");
+const { login } = require("./auth.controller");
 
 const getHistory = async (req, res) => {
   const { query } = req;
@@ -15,6 +16,7 @@ const getHistory = async (req, res) => {
       data: result.rows,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       msg: "Internal Server Error",
     });

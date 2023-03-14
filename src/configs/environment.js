@@ -5,4 +5,6 @@ module.exports = {
   dataBase: process.env.DB_PG,
   dbPort: process.env.DB_PORT,
   serverPort: process.env.SERVER_PORT,
+  jwtPwd: process.env.JWT_KEY,
+  adminCheck: process.env.ADMIN_KEY,
 };

@@ -1,0 +1,14 @@
+otentikasi =>
+memverifikasi identitas dari sebuah user
+otorisasi =>
+memastikan user tersebut menerima akses atau permission yg tepat di dalam sytem
+kedua hal menjadi penting karna kita bisa lebih menjaga asset kita
+
+JWT adalah singkatan dari JSON Web Token yaitu sebuah JSON Object yang
+digunakan untuk aktifitas transfer informasi antar platform.
+JSON Web Token dapat berfungsi untuk sistem otentikasi dan juga untuk
+pertukaran informasi
+Cara kerja JWT seperti ini : Server akan melakukan generate token yang 
+mensertifikasi identitas user,dan mengirimkannya ke klien.
+Klien akan mengirim token kembali ke server untuk setiap request ke API,
+sehingga Server side akan bisa mengetahui asal dari request tersebut.

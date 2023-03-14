@@ -2,13 +2,18 @@ const db = require("../configs/postgre");
 
 const getHistory = (query) => {
   return new Promise((resolve, reject) => {
-    let sql = `select h.id, u.email, p.product_name, p.price from history h
-    join users u on h.user_id = u.id
-    join products p on h.product_id = p.id `;
+    let sql = `select u.email, up.address, h.notes, p.product_name, s.size, pr.promo_code, py.method as payment_method, st.name as transaction_status, hps.qty, hps.sub_total 
+    from history_products_sizes hps
+    join history h on h.id = hps.history_id 
+    join products p on p.id =hps.product_id 
+    join sizes s on s.id = hps.size_id 
+    join users u on u.id = h.user_id
+    join user_profile up on up.user_id = u.id 
+    join payments py on py.id = h.payment_id 
+    join promo pr on pr.id = h.promo_id 
+    join status st on st.id = h.status_id  `;
     if (query.find) {
       sql += `where u.email like '${query.find}'`;
-    } else {
-      sql += `order by id ASC`;
     }
 
     db.query(sql, (error, result) => {
